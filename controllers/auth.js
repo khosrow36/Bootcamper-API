@@ -16,12 +16,10 @@ exports.register = asyncHandler(async (req, res, next) => {
     });
 
     sendTokenResponse(user, 200, res);
-
-    res.status(200).json({success: true, token});
 })
 
 // @desc    Login user
-// @route   POST /api/api/auth/logn
+// @route   POST /api/api/auth/login
 // @access  Public
 exports.login = asyncHandler(async (req, res, next) => {
     const {email, password} = req.body;
@@ -44,8 +42,6 @@ exports.login = asyncHandler(async (req, res, next) => {
     }
 
     sendTokenResponse(user, 200, res);
-
-    res.status(200).json({success: true, token});
 })
 
 // Get token from model, create cookie and send response
@@ -70,3 +66,15 @@ const sendTokenResponse = (user, statusCode, res) => {
             token
         });
 }
+
+// @desc    Get current logged in user
+// @route   POST /api/api/auth/me
+// @access  Private
+exports.getMe = asyncHandler(async (req, res, next) => {
+   const user = await User.findById(req.user.id);
+
+   res.status(200).json({
+       success: true,
+       data: user
+   })
+});
