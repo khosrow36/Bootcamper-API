@@ -3,15 +3,16 @@ const express = require('express');
 const dotenv = require('dotenv');
 // const logger = require('./middleware/logger');
 const morgan = require('morgan');
-const connectDB = require('./config/db')
-const colors = require('colors')
-const errorHandler = require('./middleware/error')
-const fileupload = require('express-fileupload')
+const connectDB = require('./config/db');
+const colors = require('colors');
+const errorHandler = require('./middleware/error');
+const fileupload = require('express-fileupload');
+const cookieParser = require('cookie-parser');
 
 // Env files
 dotenv.config({path: './config/config.env'});
 
-// conntect to DB
+// connect to DB
 connectDB();
 
 // Route files
@@ -23,6 +24,9 @@ const app = express();
 
 // Body parser
 app.use(express.json());
+
+// Cookie parser
+app.use(cookieParser());
 
 // Dev logging middleware
 if (process.env.NODE_ENV === 'development') {
