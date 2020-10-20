@@ -213,4 +213,4 @@ fabric.properties
 .idea/codestream.xml
 
 #public folder
-public/uploads/*
+public/uploads/
